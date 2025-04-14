@@ -183,7 +183,7 @@
   </div>
 
   <script>
-    const currentAmount = 200; // 👈 Update this value
+    const currentAmount = 370; // 👈 Update this value with your actual current amount raised
     const goalAmount = 600;
 
     // Reward thresholds
@@ -198,9 +198,12 @@
       reward600: 600
     };
 
+    // Set the current raised amount text
     document.getElementById('currentAmount').textContent = currentAmount;
-    const progress = Math.min((currentAmount / goalAmount) * 100, 100);
-    document.getElementById('progressFill').style.width = progress + '%';
+
+    // Set the progress for the overall goal
+    const overallProgress = Math.min((currentAmount / goalAmount) * 100, 100);
+    document.getElementById('progressFill').style.width = overallProgress + '%';
 
     // Loop through each goal and calculate its progress based on overall currentAmount
     for (const [rewardId, threshold] of Object.entries(rewardThresholds)) {
@@ -208,17 +211,17 @@
       const rewardProgressId = 'progress' + rewardId.slice(-3);
       const progressTextId = 'progressText' + rewardId.slice(-3);
       
-      document.getElementById(rewardId).style.display = 'block'; // Display the reward
-
+      // Update progress bar and text for each reward
       if (currentAmount >= threshold) {
-        // If the goal has been reached, show "Target Reached"
         document.getElementById(progressTextId).textContent = 'Target Reached';
         document.getElementById(rewardProgressId).style.width = '100%';
       } else {
-        // Otherwise, show the progress
         document.getElementById(progressTextId).textContent = Math.round(rewardPercentage) + '% Progress';
         document.getElementById(rewardProgressId).style.width = rewardPercentage + '%';
       }
+
+      // Ensure the reward container is visible
+      document.getElementById(rewardId).style.display = 'block';
     }
   </script>
 
