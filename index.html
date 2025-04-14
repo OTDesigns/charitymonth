@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Charity Goal Tracker</title>
+  <title>Goals for Charity Month</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -35,7 +35,7 @@
       background-color: #333;
       border-radius: 15px;
       overflow: hidden;
-      margin: 20px 0;
+      margin: 10px 0;
     }
 
     .progress-fill {
@@ -83,16 +83,21 @@
       right: 10px;
       height: 50px;
     }
+
+    .reward-progress {
+      margin-top: 5px;
+      font-size: 14px;
+    }
   </style>
 </head>
 <body>
 
   <!-- Logos (Replace 'logoX.png' with your image paths) -->
-  <img src="images/logo-top.png" alt="Top Logo" class="logo-top" />
-  <img src="images/logo-bottom-center.png" alt="Bottom Center Logo" class="logo-bottom-center" />
-  <img src="images/logo-bottom-right.png" alt="Bottom Right Logo" class="logo-bottom-right" />
+  <img src="/logo-top.png" alt="Top Logo" class="logo-top" />
+  <img src="/logo-bottom-center.png" alt="Bottom Center Logo" class="logo-bottom-center" />
+  <img src="/logo-bottom-right.png" alt="Bottom Right Logo" class="logo-bottom-right" />
 
-  <h1>🎯 Charity Goal Tracker</h1>
+  <h1>Goals for Charity Month</h1>
   <div class="goal-container">
     <h2>Goal: £600</h2>
     <p>Current: £<span id="currentAmount">0</span></p>
@@ -103,19 +108,75 @@
 
     <div class="rewards">
       <h3>Unlocked Rewards</h3>
-      <div class="reward" id="reward25">🍌 Banana & Sprite Challenge (£25)</div>
-      <div class="reward" id="reward50">🤡 Wear a Funny Costume (£50)</div>
-      <div class="reward" id="reward100">💇 Paige Cuts & Styles Hair (£100)</div>
-      <div class="reward" id="reward200">🤰 Labour Simulator (£200)</div>
-      <div class="reward" id="reward300">🐛 Eat a Bug (£300)</div>
-      <div class="reward" id="reward400">🎡 Wheel Of Punishments (Viewer Decides!) (£400)</div>
-      <div class="reward" id="reward500">🌶️ One Chip Challenge (£500)</div>
-      <div class="reward" id="reward600">☠️ The Cursed Cocktail (£600)</div>
+      
+      <div class="reward" id="reward25">
+        <span>🍌 Banana & Sprite Challenge (£25)</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress25"></div>
+        </div>
+        <div class="reward-progress" id="progressText25">0% Progress</div>
+      </div>
+
+      <div class="reward" id="reward50">
+        <span>🤡 Wear a Funny Costume (£50)</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress50"></div>
+        </div>
+        <div class="reward-progress" id="progressText50">0% Progress</div>
+      </div>
+
+      <div class="reward" id="reward100">
+        <span>💇 Paige Cuts & Styles Hair (£100)</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress100"></div>
+        </div>
+        <div class="reward-progress" id="progressText100">0% Progress</div>
+      </div>
+
+      <div class="reward" id="reward200">
+        <span>🤰 Labour Simulator (£200)</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress200"></div>
+        </div>
+        <div class="reward-progress" id="progressText200">0% Progress</div>
+      </div>
+
+      <div class="reward" id="reward300">
+        <span>🐛 Eat a Bug (£300)</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress300"></div>
+        </div>
+        <div class="reward-progress" id="progressText300">0% Progress</div>
+      </div>
+
+      <div class="reward" id="reward400">
+        <span>🎡 Wheel Of Punishments (Viewer Decides!) (£400)</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress400"></div>
+        </div>
+        <div class="reward-progress" id="progressText400">0% Progress</div>
+      </div>
+
+      <div class="reward" id="reward500">
+        <span>🌶️ One Chip Challenge (£500)</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress500"></div>
+        </div>
+        <div class="reward-progress" id="progressText500">0% Progress</div>
+      </div>
+
+      <div class="reward" id="reward600">
+        <span>☠️ The Cursed Cocktail (£600)</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress600"></div>
+        </div>
+        <div class="reward-progress" id="progressText600">0% Progress</div>
+      </div>
     </div>
   </div>
 
   <script>
-    const currentAmount = 370; // 👈 Update this value
+    const currentAmount = 200; // 👈 Update this value
     const goalAmount = 600;
 
     const rewardThresholds = {
@@ -129,6 +190,17 @@
       reward600: 600
     };
 
+    const rewardProgress = {
+      progress25: 0,
+      progress50: 0,
+      progress100: 0,
+      progress200: 0,
+      progress300: 0,
+      progress400: 0,
+      progress500: 0,
+      progress600: 0
+    };
+
     document.getElementById('currentAmount').textContent = currentAmount;
     const progress = Math.min((currentAmount / goalAmount) * 100, 100);
     document.getElementById('progressFill').style.width = progress + '%';
@@ -136,6 +208,12 @@
     for (const [rewardId, threshold] of Object.entries(rewardThresholds)) {
       if (currentAmount >= threshold) {
         document.getElementById(rewardId).style.display = 'block';
+        
+        // Calculate percentage progress for each reward
+        const rewardPercentage = Math.min((currentAmount / threshold) * 100, 100);
+        const rewardProgressId = 'progress' + rewardId.slice(-3);
+        document.getElementById(rewardProgressId).style.width = rewardPercentage + '%';
+        document.getElementById('progressText' + rewardId.slice(-3)).textContent = Math.round(rewardPercentage) + '% Progress';
       }
     }
   </script>
