@@ -65,6 +65,12 @@
       font-size: 14px;
     }
 
+    .target-reached {
+      font-size: 16px;
+      font-weight: bold;
+      color: #28a745;
+    }
+
     /* Logo placement */
     .logo-top {
       position: absolute;
@@ -199,9 +205,19 @@
     for (const [rewardId, threshold] of Object.entries(rewardThresholds)) {
       const rewardPercentage = Math.min((currentAmount / threshold) * 100, 100);
       const rewardProgressId = 'progress' + rewardId.slice(-3);
+      const progressTextId = 'progressText' + rewardId.slice(-3);
+      
       document.getElementById(rewardId).style.display = 'block'; // Display the reward
-      document.getElementById(rewardProgressId).style.width = rewardPercentage + '%'; // Set progress bar width
-      document.getElementById('progressText' + rewardId.slice(-3)).textContent = Math.round(rewardPercentage) + '% Progress'; // Set progress text
+
+      if (currentAmount >= threshold) {
+        // If the goal has been reached, show "Target Reached"
+        document.getElementById(progressTextId).textContent = 'Target Reached';
+        document.getElementById(rewardProgressId).style.width = '100%';
+      } else {
+        // Otherwise, show the progress
+        document.getElementById(progressTextId).textContent = Math.round(rewardPercentage) + '% Progress';
+        document.getElementById(rewardProgressId).style.width = rewardPercentage + '%';
+      }
     }
   </script>
 
