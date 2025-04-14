@@ -14,7 +14,7 @@
       color: #28a745;
     }
     .goal-container {
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
       background: #fff;
       padding: 30px;
@@ -37,11 +37,15 @@
     .rewards {
       margin-top: 30px;
     }
-    .rewards img {
-      width: 180px;
-      margin: 10px;
-      border-radius: 10px;
+    .reward {
       display: none;
+      background: #f0f0f0;
+      border-left: 6px solid #28a745;
+      margin: 10px auto;
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 500px;
+      font-size: 16px;
     }
   </style>
 </head>
@@ -49,7 +53,7 @@
 
   <h1>🎯 Charity Goal Tracker</h1>
   <div class="goal-container">
-    <h2>Goal: £1000</h2>
+    <h2>Goal: £600</h2>
     <p>Current: £<span id="currentAmount">0</span></p>
 
     <div class="progress-bar">
@@ -58,34 +62,42 @@
 
     <div class="rewards">
       <h3>Unlocked Rewards</h3>
-      <img src="images/reward1.jpg" alt="Reward 1" id="reward1" />
-      <img src="images/reward2.jpg" alt="Reward 2" id="reward2" />
-      <img src="images/reward3.jpg" alt="Reward 3" id="reward3" />
+      <div class="reward" id="reward25">🍌 Banana & Sprite Challenge (£25)</div>
+      <div class="reward" id="reward50">🤡 Wear a Funny Costume (£50)</div>
+      <div class="reward" id="reward100">💇 Paige Cuts & Styles Hair (£100)</div>
+      <div class="reward" id="reward200">🤰 Labour Simulator (£200)</div>
+      <div class="reward" id="reward300">🐛 Eat a Bug (£300)</div>
+      <div class="reward" id="reward400">🎡 Wheel Of Punishments (Viewer Decides!) (£400)</div>
+      <div class="reward" id="reward500">🌶️ One Chip Challenge (£500)</div>
+      <div class="reward" id="reward600">☠️ The Cursed Cocktail (£600)</div>
     </div>
   </div>
 
   <script>
-    // ✅ You only need to edit these values:
-    const currentAmount = 750;  // 👈 Update this manually
-    const goalAmount = 1000;
+    // ✅ Set your current donation amount here:
+    const currentAmount = 370; // 👈 Update this value
+    const goalAmount = 600;
 
-    // Reward thresholds
     const rewardThresholds = {
-      reward1: 250,
-      reward2: 500,
-      reward3: 750
+      reward25: 25,
+      reward50: 50,
+      reward100: 100,
+      reward200: 200,
+      reward300: 300,
+      reward400: 400,
+      reward500: 500,
+      reward600: 600
     };
 
-    // Update UI
+    // Update progress bar and amount
     document.getElementById('currentAmount').textContent = currentAmount;
-
-    const progress = Math.min(currentAmount / goalAmount * 100, 100);
+    const progress = Math.min((currentAmount / goalAmount) * 100, 100);
     document.getElementById('progressFill').style.width = progress + '%';
 
-    // Reveal rewards based on current amount
+    // Show unlocked rewards
     for (const [rewardId, threshold] of Object.entries(rewardThresholds)) {
       if (currentAmount >= threshold) {
-        document.getElementById(rewardId).style.display = 'inline-block';
+        document.getElementById(rewardId).style.display = 'block';
       }
     }
   </script>
