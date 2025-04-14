@@ -1,44 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Charity Goal Tracker</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f8f9fa;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
       text-align: center;
-    }
-    .goal {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 30px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    .rewards img {
-      width: 200px;
-      margin: 10px;
-      border-radius: 10px;
+      padding: 40px;
     }
     h1 {
       color: #28a745;
     }
+    .goal-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .progress-bar {
+      height: 30px;
+      background-color: #e0e0e0;
+      border-radius: 15px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background-color: #28a745;
+      transition: width 0.5s ease-in-out;
+    }
+    .rewards {
+      margin-top: 30px;
+    }
+    .rewards img {
+      width: 180px;
+      margin: 10px;
+      border-radius: 10px;
+      display: none;
+    }
   </style>
 </head>
 <body>
+
   <h1>🎯 Charity Goal Tracker</h1>
+  <div class="goal-container">
+    <h2>Goal: £1000</h2>
+    <p>Current: £<span id="currentAmount">0</span></p>
 
-  <div class="goal">
-    <h2>Goal: £500</h2>
-    <p>Status: <strong style="color: green;">Unlocked!</strong></p>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="rewards">
+      <h3>Unlocked Rewards</h3>
+      <img src="images/reward1.jpg" alt="Reward 1" id="reward1" />
+      <img src="images/reward2.jpg" alt="Reward 2" id="reward2" />
+      <img src="images/reward3.jpg" alt="Reward 3" id="reward3" />
+    </div>
   </div>
 
-  <div class="rewards">
-    <h2>Unlocked Rewards</h2>
-    <img src="images/reward1.jpg" alt="Reward 1">
-    <img src="images/reward2.jpg" alt="Reward 2">
-  </div>
+  <script>
+    // ✅ You only need to edit these values:
+    const currentAmount = 750;  // 👈 Update this manually
+    const goalAmount = 1000;
+
+    // Reward thresholds
+    const rewardThresholds = {
+      reward1: 250,
+      reward2: 500,
+      reward3: 750
+    };
+
+    // Update UI
+    document.getElementById('currentAmount').textContent = currentAmount;
+
+    const progress = Math.min(currentAmount / goalAmount * 100, 100);
+    document.getElementById('progressFill').style.width = progress + '%';
+
+    // Reveal rewards based on current amount
+    for (const [rewardId, threshold] of Object.entries(rewardThresholds)) {
+      if (currentAmount >= threshold) {
+        document.getElementById(rewardId).style.display = 'inline-block';
+      }
+    }
+  </script>
+
 </body>
 </html>
