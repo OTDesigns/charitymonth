@@ -47,9 +47,9 @@
 
     .milestone {
       position: absolute;
-      top: 0;
+      top: -25px;
       transform: translateX(-50%);
-      font-size: 12px;
+      font-size: 14px;
       color: white;
     }
 
@@ -57,7 +57,7 @@
       position: absolute;
       top: 0;
       height: 100%;
-      border-left: 2px dashed white;
+      border-left: 3px solid black; /* Changed to black solid line */
       width: 0;
       transform: translateX(-50%);
     }
@@ -104,10 +104,12 @@
 </head>
 <body>
 
-  <!-- Logos (Replace 'logoX.png' with your image paths) -->
-  <img src="/logo-top.png" alt="Top Logo" class="logo-top" />
-  <img src="/logo-bottom-center.png" alt="Bottom Center Logo" class="logo-bottom-center" />
-  <img src="/logo-bottom-right.png" alt="Bottom Right Logo" class="logo-bottom-right" />
+  <!-- Logos (Updated paths and Twitch link) -->
+  <img src="misterag.png" alt="Top Logo" class="logo-top" />
+  <img src="ROC.png" alt="Bottom Center Logo" class="logo-bottom-center" />
+  <a href="https://twitch.tv/m1sterag" target="_blank">
+    <img src="https://static.twitchcdn.net/assets/favicon-2c7f4f62db99e46d25b4f9268d57b204.ico" alt="Twitch Logo" class="logo-bottom-right" />
+  </a>
 
   <h1>Goals for Charity Month</h1>
   <div class="goal-container">
@@ -174,7 +176,7 @@
 
   <script>
     // Set the current raised amount
-    const currentAmount = 370; // 👈 Update this value with your actual current amount raised
+    const currentAmount = 220; // 👈 Update this value with your actual current amount raised
     const goalAmount = 600;
 
     // Update the current raised amount in the UI
