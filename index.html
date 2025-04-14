@@ -50,7 +50,7 @@
     }
 
     .reward {
-      display: none;
+      display: block;
       background: rgba(255, 255, 255, 0.15);
       border-left: 6px solid #28a745;
       margin: 10px auto;
@@ -58,6 +58,11 @@
       border-radius: 10px;
       max-width: 500px;
       font-size: 16px;
+    }
+
+    .reward-progress {
+      margin-top: 5px;
+      font-size: 14px;
     }
 
     /* Logo placement */
@@ -83,11 +88,6 @@
       right: 10px;
       height: 50px;
     }
-
-    .reward-progress {
-      margin-top: 5px;
-      font-size: 14px;
-    }
   </style>
 </head>
 <body>
@@ -109,6 +109,7 @@
     <div class="rewards">
       <h3>Unlocked Rewards</h3>
       
+      <!-- All goals listed with progress bars -->
       <div class="reward" id="reward25">
         <span>🍌 Banana & Sprite Challenge (£25)</span>
         <div class="progress-bar">
@@ -176,7 +177,7 @@
   </div>
 
   <script>
-    const currentAmount = 200; // 👈 Update this value
+    const currentAmount = 370; // 👈 Update this value
     const goalAmount = 600;
 
     const rewardThresholds = {
@@ -190,31 +191,17 @@
       reward600: 600
     };
 
-    const rewardProgress = {
-      progress25: 0,
-      progress50: 0,
-      progress100: 0,
-      progress200: 0,
-      progress300: 0,
-      progress400: 0,
-      progress500: 0,
-      progress600: 0
-    };
-
     document.getElementById('currentAmount').textContent = currentAmount;
     const progress = Math.min((currentAmount / goalAmount) * 100, 100);
     document.getElementById('progressFill').style.width = progress + '%';
 
+    // Loop through each goal and calculate its progress
     for (const [rewardId, threshold] of Object.entries(rewardThresholds)) {
-      if (currentAmount >= threshold) {
-        document.getElementById(rewardId).style.display = 'block';
-        
-        // Calculate percentage progress for each reward
-        const rewardPercentage = Math.min((currentAmount / threshold) * 100, 100);
-        const rewardProgressId = 'progress' + rewardId.slice(-3);
-        document.getElementById(rewardProgressId).style.width = rewardPercentage + '%';
-        document.getElementById('progressText' + rewardId.slice(-3)).textContent = Math.round(rewardPercentage) + '% Progress';
-      }
+      const rewardPercentage = Math.min((currentAmount / threshold) * 100, 100);
+      const rewardProgressId = 'progress' + rewardId.slice(-3);
+      document.getElementById(rewardId).style.display = 'block'; // Display the reward
+      document.getElementById(rewardProgressId).style.width = rewardPercentage + '%'; // Set progress bar width
+      document.getElementById('progressText' + rewardId.slice(-3)).textContent = Math.round(rewardPercentage) + '% Progress'; // Set progress text
     }
   </script>
 
