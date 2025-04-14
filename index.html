@@ -211,6 +211,9 @@
       const rewardProgressId = 'progress' + rewardId.slice(-3);
       const progressTextId = 'progressText' + rewardId.slice(-3);
       
+      // Logging the calculations for debugging
+      console.log(`${rewardId}: threshold = £${threshold}, progress = ${rewardPercentage}%`);
+
       // Update progress bar and text for each reward
       if (currentAmount >= threshold) {
         document.getElementById(progressTextId).textContent = 'Target Reached';
