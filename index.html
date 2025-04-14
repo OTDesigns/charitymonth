@@ -30,19 +30,36 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
     }
 
-    .progress-bar {
+    .progress-bar-container {
+      position: relative;
       height: 30px;
       background-color: #333;
       border-radius: 15px;
-      overflow: hidden;
-      margin: 10px 0;
+      margin: 20px 0;
     }
 
     .progress-fill {
       height: 100%;
-      width: 0;
       background-color: #28a745;
+      border-radius: 15px;
       transition: width 0.5s ease-in-out;
+    }
+
+    .milestone {
+      position: absolute;
+      top: 0;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: white;
+    }
+
+    .milestone-line {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      border-left: 2px dashed white;
+      width: 0;
+      transform: translateX(-50%);
     }
 
     .rewards {
@@ -58,17 +75,6 @@
       border-radius: 10px;
       max-width: 500px;
       font-size: 16px;
-    }
-
-    .reward-progress {
-      margin-top: 5px;
-      font-size: 14px;
-    }
-
-    .target-reached {
-      font-size: 16px;
-      font-weight: bold;
-      color: #28a745;
     }
 
     /* Logo placement */
@@ -108,124 +114,104 @@
     <h2>Goal: £600</h2>
     <p>Current: £<span id="currentAmount">0</span></p>
 
-    <div class="progress-bar">
+    <!-- Overall Progress Bar -->
+    <div class="progress-bar-container">
       <div class="progress-fill" id="progressFill"></div>
+      
+      <!-- Milestone markers -->
+      <div class="milestone-line" style="left: 4.17%;"></div> <!-- 25 -->
+      <div class="milestone" style="left: 4.17%;">£25</div>
+
+      <div class="milestone-line" style="left: 8.33%;"></div> <!-- 50 -->
+      <div class="milestone" style="left: 8.33%;">£50</div>
+
+      <div class="milestone-line" style="left: 16.67%;"></div> <!-- 100 -->
+      <div class="milestone" style="left: 16.67%;">£100</div>
+
+      <div class="milestone-line" style="left: 33.33%;"></div> <!-- 200 -->
+      <div class="milestone" style="left: 33.33%;">£200</div>
+
+      <div class="milestone-line" style="left: 50%;"></div> <!-- 300 -->
+      <div class="milestone" style="left: 50%;">£300</div>
+
+      <div class="milestone-line" style="left: 66.67%;"></div> <!-- 400 -->
+      <div class="milestone" style="left: 66.67%;">£400</div>
+
+      <div class="milestone-line" style="left: 83.33%;"></div> <!-- 500 -->
+      <div class="milestone" style="left: 83.33%;">£500</div>
+
+      <div class="milestone-line" style="left: 100%;"></div> <!-- 600 -->
+      <div class="milestone" style="left: 100%;">£600</div>
     </div>
 
     <div class="rewards">
-      <h3>Unlocked Rewards</h3>
-      
-      <!-- All goals listed with progress bars -->
-      <div class="reward" id="reward25">
+      <div class="reward">
         <span>🍌 Banana & Sprite Challenge (£25)</span>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress25"></div>
-        </div>
-        <div class="reward-progress" id="progressText25">0% Progress</div>
       </div>
-
-      <div class="reward" id="reward50">
+      <div class="reward">
         <span>🤡 Wear a Funny Costume (£50)</span>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress50"></div>
-        </div>
-        <div class="reward-progress" id="progressText50">0% Progress</div>
       </div>
-
-      <div class="reward" id="reward100">
+      <div class="reward">
         <span>💇 Paige Cuts & Styles Hair (£100)</span>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress100"></div>
-        </div>
-        <div class="reward-progress" id="progressText100">0% Progress</div>
       </div>
-
-      <div class="reward" id="reward200">
+      <div class="reward">
         <span>🤰 Labour Simulator (£200)</span>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress200"></div>
-        </div>
-        <div class="reward-progress" id="progressText200">0% Progress</div>
       </div>
-
-      <div class="reward" id="reward300">
+      <div class="reward">
         <span>🐛 Eat a Bug (£300)</span>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress300"></div>
-        </div>
-        <div class="reward-progress" id="progressText300">0% Progress</div>
       </div>
-
-      <div class="reward" id="reward400">
+      <div class="reward">
         <span>🎡 Wheel Of Punishments (Viewer Decides!) (£400)</span>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress400"></div>
-        </div>
-        <div class="reward-progress" id="progressText400">0% Progress</div>
       </div>
-
-      <div class="reward" id="reward500">
+      <div class="reward">
         <span>🌶️ One Chip Challenge (£500)</span>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress500"></div>
-        </div>
-        <div class="reward-progress" id="progressText500">0% Progress</div>
       </div>
-
-      <div class="reward" id="reward600">
+      <div class="reward">
         <span>☠️ The Cursed Cocktail (£600)</span>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress600"></div>
-        </div>
-        <div class="reward-progress" id="progressText600">0% Progress</div>
       </div>
     </div>
   </div>
 
   <script>
+    // Set the current raised amount
     const currentAmount = 370; // 👈 Update this value with your actual current amount raised
     const goalAmount = 600;
 
-    // Reward thresholds
-    const rewardThresholds = {
-      reward25: 25,
-      reward50: 50,
-      reward100: 100,
-      reward200: 200,
-      reward300: 300,
-      reward400: 400,
-      reward500: 500,
-      reward600: 600
-    };
-
-    // Set the current raised amount text
+    // Update the current raised amount in the UI
     document.getElementById('currentAmount').textContent = currentAmount;
 
-    // Set the progress for the overall goal
-    const overallProgress = Math.min((currentAmount / goalAmount) * 100, 100);
-    document.getElementById('progressFill').style.width = overallProgress + '%';
+    // Calculate the overall progress as a percentage
+    const progress = (currentAmount / goalAmount) * 100;
+    const progressBar = document.getElementById('progressFill');
+    progressBar.style.width = `${Math.min(progress, 100)}%`; // Make sure it doesn't exceed 100%
 
-    // Loop through each goal and calculate its progress based on overall currentAmount
-    for (const [rewardId, threshold] of Object.entries(rewardThresholds)) {
-      const rewardPercentage = Math.min((currentAmount / threshold) * 100, 100);
-      const rewardProgressId = 'progress' + rewardId.slice(-3);
-      const progressTextId = 'progressText' + rewardId.slice(-3);
-      
-      // Logging the calculations for debugging
-      console.log(`${rewardId}: threshold = £${threshold}, progress = ${rewardPercentage}%`);
+    // Update milestone markers based on the current amount
+    const milestones = [
+      { value: 25, position: '4.17%' },
+      { value: 50, position: '8.33%' },
+      { value: 100, position: '16.67%' },
+      { value: 200, position: '33.33%' },
+      { value: 300, position: '50%' },
+      { value: 400, position: '66.67%' },
+      { value: 500, position: '83.33%' },
+      { value: 600, position: '100%' }
+    ];
 
-      // Update progress bar and text for each reward
-      if (currentAmount >= threshold) {
-        document.getElementById(progressTextId).textContent = 'Target Reached';
-        document.getElementById(rewardProgressId).style.width = '100%';
-      } else {
-        document.getElementById(progressTextId).textContent = Math.round(rewardPercentage) + '% Progress';
-        document.getElementById(rewardProgressId).style.width = rewardPercentage + '%';
-      }
+    milestones.forEach(milestone => {
+      const milestoneLine = document.createElement('div');
+      milestoneLine.classList.add('milestone-line');
+      milestoneLine.style.left = milestone.position;
 
-      // Ensure the reward container is visible
-      document.getElementById(rewardId).style.display = 'block';
-    }
+      // Add text for milestones and only show them if the target is reached
+      const milestoneLabel = document.createElement('div');
+      milestoneLabel.classList.add('milestone');
+      milestoneLabel.style.left = milestone.position;
+      milestoneLabel.textContent = `£${milestone.value}`;
+
+      // Add to the progress bar container
+      document.querySelector('.progress-bar-container').appendChild(milestoneLine);
+      document.querySelector('.progress-bar-container').appendChild(milestoneLabel);
+    });
   </script>
 
 </body>
