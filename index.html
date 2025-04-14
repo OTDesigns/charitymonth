@@ -183,9 +183,10 @@
   </div>
 
   <script>
-    const currentAmount = 370; // 👈 Update this value
+    const currentAmount = 200; // 👈 Update this value
     const goalAmount = 600;
 
+    // Reward thresholds
     const rewardThresholds = {
       reward25: 25,
       reward50: 50,
@@ -201,7 +202,7 @@
     const progress = Math.min((currentAmount / goalAmount) * 100, 100);
     document.getElementById('progressFill').style.width = progress + '%';
 
-    // Loop through each goal and calculate its progress
+    // Loop through each goal and calculate its progress based on overall currentAmount
     for (const [rewardId, threshold] of Object.entries(rewardThresholds)) {
       const rewardPercentage = Math.min((currentAmount / threshold) * 100, 100);
       const rewardProgressId = 'progress' + rewardId.slice(-3);
