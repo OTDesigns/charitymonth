@@ -57,7 +57,7 @@
       position: absolute;
       top: 0;
       height: 100%;
-      border-left: 3px solid black; /* Changed to black solid line */
+      border-left: 3px solid black;
       width: 0;
       transform: translateX(-50%);
     }
@@ -80,10 +80,10 @@
     /* Logo placement */
     .logo-top {
       position: absolute;
-      top: 10px;
+      top: 60px; /* Moved slightly down */
       left: 50%;
       transform: translateX(-50%);
-      height: 60px;
+      height: 120px; /* 200% bigger */
     }
 
     .logo-bottom-center {
@@ -91,7 +91,7 @@
       bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-      height: 50px;
+      height: 100px; /* 200% bigger */
     }
 
     .logo-bottom-right {
@@ -100,6 +100,16 @@
       right: 10px;
       height: 50px;
     }
+
+    .twitch-link {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2em; /* 200% bigger */
+      color: white;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -107,9 +117,8 @@
   <!-- Logos (Updated paths and Twitch link) -->
   <img src="misterag.png" alt="Top Logo" class="logo-top" />
   <img src="ROC.png" alt="Bottom Center Logo" class="logo-bottom-center" />
-  <a href="https://twitch.tv/m1sterag" target="_blank">
-    <img src="https://static.twitchcdn.net/assets/favicon-2c7f4f62db99e46d25b4f9268d57b204.ico" alt="Twitch Logo" class="logo-bottom-right" />
-  </a>
+  <a href="https://twitch.tv/m1sterag" target="_blank" class="twitch-link">twitch.tv/m1sterag</a>
+  <img src="https://static.twitchcdn.net/assets/favicon-2c7f4f62db99e46d25b4f9268d57b204.ico" alt="Twitch Logo" class="logo-bottom-right" />
 
   <h1>Goals for Charity Month</h1>
   <div class="goal-container">
@@ -176,7 +185,7 @@
 
   <script>
     // Set the current raised amount
-    const currentAmount = 220; // 👈 Update this value with your actual current amount raised
+    const currentAmount = 370; // 👈 Update this value with your actual current amount raised
     const goalAmount = 600;
 
     // Update the current raised amount in the UI
